@@ -28,14 +28,19 @@ def generate_missing():
     missing_value = shape[0]*shape[1]*dict["percent"]/100
     missing_value = round(missing_value)
     print("Total no. of missing that are going to be generated in the Dataframe is ", missing_value)
-    for a in range(missing_value-1):
+    a=0
+    while a <=(missing_value-1):
         row = random.randint(0,shape[0]-1)
         col = random.randint(0,shape[1]-1)
-        dict["data"].iloc[row,col] = None
+        if dict["data"].iloc[row,col] == None:
+            continue
+        else:
+            dict["data"].iloc[row,col] = None
+            a+=1
 
     print("Missing Values are generated Successfully Generated.")
     name = input("Enter the name of the folder:\n")
-    dict["data"].to_csv(name)
+    dict["data"].to_csv(name+".csv")
     print("Your DataFrame is saved in the current folder with name: ", name)
     dict["data"].info()
 
